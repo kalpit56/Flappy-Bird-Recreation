@@ -6,14 +6,19 @@ using UnityEngine.SceneManagement;
 
 public class FlappyBird : MonoBehaviour
 {
-    int score;
+    int score = 0;
     public float jumpForce = 5;
-    public Text output;
+    public Text scoreText;
+    public Canvas gameOver;
+    public Button startOver;
 
     // Start is called before the first frame update
     void Start()
     {
-        score = 0;
+        gameOver.enabled = false;
+        startOver.onClick.AddListener(() => {
+            SceneManager.LoadScene(0);
+        });
     }
 
     // Update is called once per frame
@@ -27,11 +32,11 @@ public class FlappyBird : MonoBehaviour
 
 
     private void OnCollisionEnter(Collision pipePair){
-        SceneManager.LoadScene(0);
+        gameOver.enabled = true;
+        scoreText.text += score.ToString();
     }
 
-    private void onTriggerEnter(Collider pass){
+    private void OnTriggerEnter(Collider pass){
         score++;
-        print(score);
     }
 }
