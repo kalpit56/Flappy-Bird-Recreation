@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class FlappyBird : MonoBehaviour
 {
-    int score = 0;
+    public int score = 0;
     public float jumpForce = 5;
     public Text scoreText;
     public Canvas gameOver;
     public Button startOver;
+    public GameObject projectile;
+    //public Text scoreText2;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +30,11 @@ public class FlappyBird : MonoBehaviour
             Vector3 oldVelocity = GetComponent<Rigidbody>().velocity;
             GetComponent<Rigidbody>().velocity = new Vector3(oldVelocity.x, jumpForce, 0);
         }
+
+        if(Input.GetKeyDown(KeyCode.V)){
+            GameObject newProjectile = Instantiate(projectile, this.transform.position + new Vector3(1, 0, 0), projectile.transform.rotation);
+            newProjectile.GetComponent<Rigidbody>().velocity = new Vector3(2, 0, 0);
+        }
     }
 
 
@@ -38,5 +45,6 @@ public class FlappyBird : MonoBehaviour
 
     private void OnTriggerEnter(Collider pass){
         score++;
+        //scoreText2.text = "Score: " + score.ToString();
     }
 }

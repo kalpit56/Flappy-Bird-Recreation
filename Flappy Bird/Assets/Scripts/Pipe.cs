@@ -5,7 +5,7 @@ using UnityEngine;
 public class Pipe : MonoBehaviour
 {
     public float speed = -3;
-    float life = 0;
+    float life = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -17,8 +17,8 @@ public class Pipe : MonoBehaviour
     void Update()
     {
         this.transform.position += new Vector3(speed, 0, 0) * Time.deltaTime;
-        life += Time.deltaTime;
-        if(life >= 10){
+        life -= Time.deltaTime;
+        if(life <= 0){
             Destroy(this.gameObject);
         }
     }
