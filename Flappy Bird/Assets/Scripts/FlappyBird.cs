@@ -12,11 +12,16 @@ public class FlappyBird : MonoBehaviour
     public Canvas gameOver;
     public Button startOver;
     public GameObject projectile;
+    PipeSpawner pipe;
+    Pipe pipes;
+
     //public Text scoreText2;
 
     // Start is called before the first frame update
     void Start()
     {
+        pipe = GameObject.Find("PipeSpawner").GetComponent<PipeSpawner>();
+        //pipes = GameObject.Find("PipePair").GetComponent<Pipe>();
         gameOver.enabled = false;
         startOver.onClick.AddListener(() => {
             SceneManager.LoadScene(0);
@@ -39,6 +44,8 @@ public class FlappyBird : MonoBehaviour
 
 
     private void OnCollisionEnter(Collision pipePair){
+        pipe.enabled = false;
+        //pipes.enabled = false;
         gameOver.enabled = true;
         scoreText.text += score.ToString();
     }
